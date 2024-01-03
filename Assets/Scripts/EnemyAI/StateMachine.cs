@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    private BaseState activeState;
-    private PatrolState patrolState;
+    public BaseState ActiveState { get; private set; }
+
+    public void Init()
+    {
+        ChangeState(new PatrolState());
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -16,31 +20,25 @@ public class StateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (activeState is not null)
+        if (ActiveState != null)
         {
-            activeState.Perform();
+            ActiveState.Perform();
         }
     }
 
     public void ChangeState(BaseState newState)
     {
-        if (activeState is not null)
+        if (ActiveState != null)
         {
-            activeState.Exit();
+            ActiveState.Exit();
         }
-        activeState = newState;
+        ActiveState = newState;
 
-        if (activeState is not null)
+        if (ActiveState != null)
         {
-            activeState.StateMachine = this;
-            activeState.Enemy = GetComponent<Enemy>();
-            activeState.Enter();
+            ActiveState.StateMachine = this;
+            ActiveState.Enemy = GetComponent<Enemy>();
+            ActiveState.Enter();
         }
-    }
-
-    public void Init()
-    {
-        patrolState = new();
-        ChangeState(patrolState);
     }
 }
