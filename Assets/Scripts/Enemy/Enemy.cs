@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Vitals;
 
 public class Enemy : MonoBehaviour
 {
     private StateMachine stateMachine;
-    private float health = 100f;
+    private Health health;
 
     // just for debugging
     [SerializeField]
@@ -33,6 +32,7 @@ public class Enemy : MonoBehaviour
         stateMachine = GetComponent<StateMachine>();
         Agent = GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player");
+        health = GetComponent<Health>();
 
         stateMachine.Init();
     }
@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
         CanSeePlayer();
 
         currentState = stateMachine.ActiveState.ToString();
-        if (health <= 0)
+        if (health.Value <= 0)
         {
             Destroy(gameObject);
         }
@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.transform.CompareTag("PlayerProjectile"))
         {
-            health -= 10f;
+            health.Decrease(5f);
         }
     }
 }

@@ -62,7 +62,7 @@ public class AttackState : BaseState
         Vector3 shootDirection = (Enemy.Player.transform.position - spawnPoint.transform.position).normalized;
 
         // add force to the rigidbody component
-        projectile.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-3f, 3f), Vector3.up) * shootDirection * 40;
+        projectile.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-5f, 5f), Vector3.up) * shootDirection * 40;
 
         shotTimer = 0;
     }
