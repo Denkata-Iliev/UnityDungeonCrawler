@@ -28,20 +28,22 @@ public class AttackState : BaseState
             }
 
             // move to a random position after some time
-            if (moveTimer > Random.Range(3, 7))
+            if (moveTimer > Random.Range(3, 5))
             {
-                Enemy.Agent.SetDestination(Enemy.transform.position + Random.insideUnitSphere * 5);
+                Enemy.Agent.SetDestination(Enemy.transform.position + Random.insideUnitSphere * 10);
                 moveTimer = 0;
             }
+
+            Enemy.LastKnownPlayerPosition = Enemy.Player.transform.position;
         }
-        else
+        else // lost sight of player
         {
             losePlayerTimer += Time.deltaTime;
 
             if (losePlayerTimer > 8)
             {
                 // change to search state
-                StateMachine.ChangeState(new PatrolState());
+                StateMachine.ChangeState(new SearchState());
             }
         }
     }

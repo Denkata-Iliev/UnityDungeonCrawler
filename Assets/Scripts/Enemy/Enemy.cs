@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
 
     public NavMeshAgent Agent { get; private set; }
     public GameObject Player { get; private set; }
+    public Vector3 LastKnownPlayerPosition { get; set; }
+
     public Path path;
     public GameObject projectilePrefab;
 
