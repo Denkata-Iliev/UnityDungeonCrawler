@@ -14,6 +14,11 @@ public class AttackState : BaseState
 
     public override void Perform()
     {
+        if (Enemy.IsDead())
+        {
+            return;
+        }
+
         if (Enemy.CanSeePlayer())
         {
             losePlayerTimer = 0;

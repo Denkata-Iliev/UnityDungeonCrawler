@@ -4,11 +4,9 @@ public class PatrolState : BaseState
 {
     private int waypointIndex;
     private float waitTime;
-    private Animator animator;
 
     public override void Enter()
     {
-        animator = Enemy.GetComponent<Animator>();
     }
 
     public override void Perform()
@@ -30,12 +28,10 @@ public class PatrolState : BaseState
         // waypoint is far, make the enemy walk
         if (Enemy.Agent.remainingDistance > 0.2f)
         {
-            StartWalkingAnim();
             return;
         }
 
         // reached waypoint, so enemy stops walking and idles
-        StopWalkingAnim();
         waitTime += Time.deltaTime;
         if (waitTime > 3)
         {
@@ -51,17 +47,6 @@ public class PatrolState : BaseState
 
             Enemy.Agent.SetDestination(Enemy.path.waypoints[waypointIndex].position);
             waitTime = 0;
-            StartWalkingAnim();
         }
-    }
-
-    private void StartWalkingAnim()
-    {
-        animator.SetTrigger("StartWalking");
-    }
-
-    private void StopWalkingAnim()
-    {
-        animator.SetTrigger("StopWalking");
     }
 }

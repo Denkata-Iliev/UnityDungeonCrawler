@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     private StateMachine stateMachine;
     private Health health;
+    private Animator animator;
 
     // just for debugging
     [SerializeField]
@@ -35,6 +36,7 @@ public class Enemy : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player");
         health = GetComponent<Health>();
+        animator = GetComponent<Animator>();
 
         stateMachine.Init();
     }
@@ -42,12 +44,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CanSeePlayer();
+        animator.SetFloat("Blend", Agent.velocity.magnitude);
 
         currentState = stateMachine.ActiveState.ToString();
-        if (health.Value <= 0)
+        if (IsDead())
         {
-            Destroy(gameObject);
+            animator.SetTrigger("Death");
+            Destroy(gameObject, 3);
         }
     }
 
@@ -72,7 +75,6 @@ public class Enemy : MonoBehaviour
                         // is that object the player
                         if (hitInfo.transform.gameObject == Player)
                         {
-                            Debug.DrawRay(ray.origin, ray.direction * sightDistance);
                             return true;
                         }
                     }
@@ -81,6 +83,11 @@ public class Enemy : MonoBehaviour
         }
 
         return false;
+    }
+
+    public bool IsDead()
+    {
+        return health.Value == 0;
     }
 
     private void OnCollisionEnter(Collision collision)
