@@ -11,6 +11,9 @@
 - [Vitals - Health and Stamina System](https://assetstore.unity.com/packages/tools/utilities/vitals-health-and-stamina-system-247422)
 - [Free Wand Pack](https://assetstore.unity.com/packages/3d/props/weapons/3d-items-free-wand-pack-46225)
 - [Zombie Monster Animations](https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/zombie-monster-animations-free-259680)
+- [Mini Legion Rock Golem](https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/mini-legion-rock-golem-pbr-hp-polyart-94707)
+- [Dragon Bosses](https://assetstore.unity.com/packages/3d/characters/creatures/dragon-for-boss-monster-hp-79398)
+- [RPG Monster Partners](https://assetstore.unity.com/packages/3d/characters/creatures/rpg-monster-partners-pbr-polyart-168251#publisher)
 
 ### **3.	Надграждане**
 
