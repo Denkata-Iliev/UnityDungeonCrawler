@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootProjectile : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _projectilePrefab;
+    private GameObject projectilePrefab;
 
     [SerializeField]
-    private GameObject _projectilSpawnPoint;
+    private GameObject projectilSpawnPoint;
 
     [SerializeField]
-    private float _projectileSpeed = 600;
+    private float projectileSpeed = 600;
 
     private readonly float fireRate = 0.3f;
     private float shotTimer;
@@ -30,8 +28,13 @@ public class ShootProjectile : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            var bullet = Instantiate(_projectilePrefab, _projectilSpawnPoint.transform.position, transform.rotation);
-            bullet.GetComponent<Rigidbody>().AddForce(_projectilSpawnPoint.transform.forward * _projectileSpeed);
+            var bullet = Instantiate(projectilePrefab,
+                projectilSpawnPoint.transform.position,
+                transform.rotation);
+
+            bullet.GetComponent<Rigidbody>()
+                .AddForce(projectilSpawnPoint.transform.forward * projectileSpeed);
+
             Destroy(bullet, 1);
             shotTimer = 0;
         }

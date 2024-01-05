@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackState : BaseState
@@ -29,7 +27,9 @@ public class AttackState : BaseState
 
             if (shotTimer > Enemy.fireRate)
             {
+                Enemy.Animator.SetTrigger("Attack");
                 Shoot();
+                Enemy.Animator.SetTrigger("Move");
             }
 
             // move to a random position after some time

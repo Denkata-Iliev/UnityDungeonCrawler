@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour
 {
     private StateMachine stateMachine;
     private Health health;
-    private Animator animator;
 
     // just for debugging
     [SerializeField]
@@ -15,6 +14,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent Agent { get; private set; }
     public GameObject Player { get; private set; }
     public Vector3 LastKnownPlayerPosition { get; set; }
+    public Animator Animator { get; private set; }
 
     public Path path;
     public GameObject projectilePrefab;
@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
         Agent = GetComponent<NavMeshAgent>();
         Player = GameObject.FindGameObjectWithTag("Player");
         health = GetComponent<Health>();
-        animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
 
         stateMachine.Init();
     }
@@ -44,41 +44,47 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetFloat("Blend", Agent.velocity.magnitude);
+        Animator.SetFloat("Speed", Agent.velocity.magnitude);
 
         currentState = stateMachine.ActiveState.ToString();
         if (IsDead())
         {
-            animator.SetTrigger("Death");
+            Animator.SetTrigger("Death");
             Destroy(gameObject, 3);
         }
     }
 
     public bool CanSeePlayer()
     {
-        if (Player != null)
+        if (Player == null)
         {
-            // is the player close enough to be seen
-            if (Vector3.Distance(transform.position, Player.transform.position) < sightDistance)
+            return false;
+        }
+
+        // player is too far to be seen
+        if (Vector3.Distance(transform.position, Player.transform.position) > sightDistance)
+        {
+            return false;
+        }
+
+        Vector3 targetDirection = Player.transform.position - transform.position;
+        float angleToPlayer = Vector3.Angle(targetDirection, transform.forward);
+
+        // player is OUTSIDE of the field of view
+        if (angleToPlayer < -fieldOfView || angleToPlayer > fieldOfView)
+        {
+            return false;
+        }
+
+        Ray ray = new(transform.position, targetDirection);
+
+        // is the line of sight blocked by an object
+        if (Physics.Raycast(ray, out var hitInfo, sightDistance))
+        {
+            // is that object the player
+            if (hitInfo.transform.gameObject == Player)
             {
-                Vector3 targetDirection = Player.transform.position - transform.position;
-                float angleToPlayer = Vector3.Angle(targetDirection, transform.forward);
-
-                // is the player in the field of view
-                if (angleToPlayer >= -fieldOfView && angleToPlayer <= fieldOfView)
-                {
-                    Ray ray = new(transform.position, targetDirection);
-
-                    // is the line of sight is blocked by an object
-                    if (Physics.Raycast(ray, out var hitInfo, sightDistance))
-                    {
-                        // is that object the player
-                        if (hitInfo.transform.gameObject == Player)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                return true;
             }
         }
 
@@ -95,6 +101,12 @@ public class Enemy : MonoBehaviour
         if (collision.transform.CompareTag("PlayerProjectile"))
         {
             health.Decrease(5f);
+            Animator.SetTrigger("Damaged");
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        Animator.SetTrigger("Move");
     }
 }
