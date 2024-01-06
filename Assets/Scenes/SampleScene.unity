@@ -7478,6 +7478,83 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b70bb637c1de5458361cdbe2cab1a2, type: 3}
+--- !u!1 &331213894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331213896}
+  - component: {fileID: 331213895}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &331213895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331213894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30746e1962799c449bc6842edb441877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Walk
+    clip: {fileID: 8300000, guid: b9adf755fc47d9344aa94722fc3b8559, type: 3}
+    volume: 0.36
+    pitch: 1
+    spatialblend: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    loop: 0
+  - name: Sprint
+    clip: {fileID: 8300000, guid: 7d6c2d975b1a4db48adeba00962bcfd4, type: 3}
+    volume: 0.36
+    pitch: 1
+    spatialblend: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    loop: 0
+  - name: Jump
+    clip: {fileID: 8300000, guid: dd44e5edc5e66e24c87ea5a07368a9f8, type: 3}
+    volume: 0.05
+    pitch: 1
+    spatialblend: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    loop: 0
+  - name: Ambient
+    clip: {fileID: 8300000, guid: 6e44653abec42124c8b2c8e6f049560a, type: 3}
+    volume: 0.2
+    pitch: 1
+    spatialblend: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    loop: 1
+--- !u!4 &331213896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331213894}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 99.35603, y: 24.6, z: -24.710293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &332240338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9677,7 +9754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2219292830553907877, guid: 6a4317fc729846d79f69cda980e03f9d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38633,7 +38710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4530003306004163418, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4530003306004526970, guid: a281aaaef0214dbbb7a0c5e5d4d370d1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -42854,7 +42931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1776966266084158026, guid: f99bbd0754201f448b27f0c455b92b76, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4972802055694576266, guid: f99bbd0754201f448b27f0c455b92b76, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -48558,3 +48635,4 @@ SceneRoots:
   - {fileID: 1505011136}
   - {fileID: 1300897687}
   - {fileID: 416875840}
+  - {fileID: 331213896}

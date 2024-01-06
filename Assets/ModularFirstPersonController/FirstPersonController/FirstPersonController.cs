@@ -290,13 +290,17 @@ public class FirstPersonController : MonoBehaviour
                     {
                         isSprinting = false;
                         isSprintCooldown = true;
+                        
                     }
                 }
+
+                FindObjectOfType<AudioManager>().Play("Sprint");
             }
             else
             {
                 // Regain sprint while not sprinting
                 sprintRemaining = Mathf.Clamp(sprintRemaining += 1 * Time.deltaTime, 0, sprintDuration);
+                FindObjectOfType<AudioManager>().Stop("Sprint");
             }
 
             // Handles sprint cooldown 
@@ -369,6 +373,10 @@ public class FirstPersonController : MonoBehaviour
         {
             jumpsNumber = 1;
         }
+        else
+        {
+            FindObjectOfType<AudioManager>().Stop("Sprint");
+        }
     }
 
     void FixedUpdate()
@@ -385,10 +393,12 @@ public class FirstPersonController : MonoBehaviour
             if (targetVelocity.x != 0 || targetVelocity.z != 0 && isGrounded)
             {
                 isWalking = true;
+                FindObjectOfType<AudioManager>().Play("Walk");
             }
             else
             {
                 isWalking = false;
+                FindObjectOfType<AudioManager>().Stop("Walk");
             }
 
             // All movement calculations shile sprint is active
@@ -471,6 +481,7 @@ public class FirstPersonController : MonoBehaviour
         // Adds force to the player rigidbody to jump
         if (jumpsNumber <= 1)
         {
+            FindObjectOfType<AudioManager>().Play("Jump");
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
         }
