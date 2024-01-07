@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PlayerProjectile
   - EnemyProjectile
+  - Elite
+  - Boss
   layers:
   - Default
   - TransparentFX
