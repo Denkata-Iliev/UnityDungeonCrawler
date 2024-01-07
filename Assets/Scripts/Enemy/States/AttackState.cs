@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackState : BaseState
@@ -63,12 +64,30 @@ public class AttackState : BaseState
         Transform spawnPoint = Enemy.projectileSpawnPoint;
 
         // instantiate a new projectile
+        // if it's a boss, instantiate 20 projectiles
+        List<GameObject> projectiles = new();
+        if (Enemy.CompareTag("Boss"))
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                projectiles.Add(GameObject.Instantiate(Enemy.projectilePrefab, spawnPoint.position, Enemy.transform.rotation));
+            }
+        }
+        // instantiate a new projectile
         GameObject projectile = GameObject.Instantiate(Enemy.projectilePrefab, spawnPoint.position, Enemy.transform.rotation);
 
         // calculate the direction to the player
         Vector3 shootDirection = (Enemy.Player.transform.position - spawnPoint.transform.position).normalized;
 
         // add force to the rigidbody component
+        // if it's a boss, shoot the projectiles closer to the player
+        if (projectiles.Count > 0 && Enemy.CompareTag("Boss"))
+        {
+            foreach (var proj in projectiles)
+            {
+                proj.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-2f, 2f), Vector3.up) * shootDirection * 40;
+            }
+        }
         projectile.GetComponent<Rigidbody>().velocity = Quaternion.AngleAxis(Random.Range(-5f, 5f), Vector3.up) * shootDirection * 40;
 
         shotTimer = 0;

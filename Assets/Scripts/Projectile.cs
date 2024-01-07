@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
 
         if (hitTransform.CompareTag("Player"))
         {
-            Debug.Log("Player is hit");
+            FindObjectOfType<AudioManager>().Play("Hurt");
             // player takes damage
             hitTransform.GetComponent<Health>().Decrease(damageDone);
         }

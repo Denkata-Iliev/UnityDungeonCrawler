@@ -17,6 +17,7 @@ public class PlayerDeath : MonoBehaviour
     {
         if (health.Value <= 0)
         {
+            FindObjectOfType<AudioManager>().Play("Dies");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             Cursor.lockState = CursorLockMode.None;
         }
